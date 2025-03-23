@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: container1-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: container1
+  template:
+    metadata:
+      labels:
+        app: container1
+    spec:
+      containers:
+        - name: container1
+          image: us-central1-docker.pkg.dev/assignment-3-454605/assignment3-images/sajidrahman27/container11  # Your Docker image for container1
+          ports:
+            - containerPort: 8000  # The container listens on port 8000
+          volumeMounts:
+            - mountPath: /Saajid_PV_dir/  # Mount path inside the container
+              name: persistent-storage  # The volume reference name
+
+        - name: container2
+          image: us-central1-docker.pkg.dev/assignment-3-454605/assignment3-images/sajidrahman27/container22  # Your Docker image for container2
+          ports:
+            - containerPort: 7000  # The container listens on port 7000
+          volumeMounts:
+            - mountPath: /Saajid_PV_dir/  # Mount path inside the container
+              name: persistent-storage  # The volume reference name
+
+      volumes:
+        - name: persistent-storage
+          persistentVolumeClaim:
+            claimName: persistent-volume-claim  # Reference to PVC for both containers
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: container1-service
+spec:
+  selector:
+    app: container1  # The label should match the app label in your Deployment
+  ports:
+    - protocol: TCP
+      port: 80         # The port exposed to the outside world
+      targetPort: 8000  # The internal port inside container1 to forward traffic to
+  type: LoadBalancer  # Can use NodePort or ClusterIP depending on your needs
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: container2-service
+spec:
+  selector:
+    app: container1  # The label should match the app label in your Deployment
+  ports:
+    - protocol: TCP
+      port: 81         # The port exposed to the outside world for container2
+      targetPort: 7000  # The internal port inside container2 to forward traffic to
+  type: LoadBalancer  # Can use NodePort or ClusterIP depending on your needs
+
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: persistent-volume
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  persistentVolumeReclaimPolicy: Retain
+  accessModes:
+    - ReadWriteOnce
+  gcePersistentDisk:
+    pdName: saajid-disk   # Same disk name as in Terraform
+    fsType: ext4
+
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: persistent-volume-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+

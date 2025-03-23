@@ -1,0 +1,59 @@
+steps:
+  - id: 'Build and Push Container1'
+    name: 'gcr.io/cloud-builders/docker'
+    dir: 'K8s/container1'
+    args:
+      - 'build'
+      - '-t'
+      - 'us-central1-docker.pkg.dev/assignment-3-454605/assignment3-images/sajidrahman27/container11'
+      - '.'
+
+
+  - id: 'Push Container1'
+    name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'us-central1-docker.pkg.dev/assignment-3-454605/assignment3-images/sajidrahman27/container11'
+
+  - id: 'Build and Push Container2'
+    name: 'gcr.io/cloud-builders/docker'
+    dir: 'K8s/container2'
+    args:
+      - 'build'
+      - '-t'
+      - 'us-central1-docker.pkg.dev/assignment-3-454605/assignment3-images/sajidrahman27/container22'
+      - '.'
+
+  - id: 'Push Container2'
+    name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'us-central1-docker.pkg.dev/assignment-3-454605/assignment3-images/sajidrahman27/container22'
+
+  - id: 'Get GKE Credentials'
+    name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'container'
+      - 'clusters'
+      - 'get-credentials'
+      - 'assignmet3-cluster'
+      - '--region'
+      - 'us-central1-a'
+      - '--project'
+      - 'assignment-3-454605'
+
+
+
+  - id: 'Deploy to Kubernetes'
+    name: 'gcr.io/cloud-builders/kubectl'
+    args:
+      - 'apply'
+      - '-f'
+      - 'K8s/deployment.yaml'
+
+
+
+
+
+
+

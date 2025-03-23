@@ -1,0 +1,14 @@
+services:
+  container1:
+    image: sajidrahman27/container11
+    ports:
+      - 6000:8000
+    volumes:
+      - ./:/files
+
+  container2:
+    image: sajidrahman27/container22
+    ports:
+      - 5000:7000
+    volumes:
+      - .:/files
