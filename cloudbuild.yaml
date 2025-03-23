@@ -27,14 +27,7 @@ steps:
       - 'push'
       - 'us-central1-docker.pkg.dev/assignment-3-454605/assignment3-images/sajidrahman27/container11'
 
-  - id: 'Build and Push Container2'
-    name: 'gcr.io/cloud-builders/docker'
-    dir: './container2'
-    args:
-      - 'build'
-      - '-t'
-      - 'us-central1-docker.pkg.dev/assignment-3-454605/assignment3-images/sajidrahman27/container22'
-      - '.'
+
 
   - id: 'Clean package Container2'
     name: 'maven:3.8-openjdk-17'
@@ -43,6 +36,16 @@ steps:
       - 'mvn'
       - 'clean'
       - 'package'
+
+
+  - id: 'Build and Push Container2'
+    name: 'gcr.io/cloud-builders/docker'
+    dir: './container2'
+    args:
+      - 'build'
+      - '-t'
+      - 'us-central1-docker.pkg.dev/assignment-3-454605/assignment3-images/sajidrahman27/container22'
+      - '.'
 
   - id: 'Push Container2'
     name: 'gcr.io/cloud-builders/docker'
