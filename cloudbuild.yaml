@@ -3,6 +3,14 @@ options:
 
 
 steps:
+  - id: 'Clean package Container1'
+    name: 'maven:3.8-openjdk-17'
+    dir: './container1'
+    args:
+      - 'mvn'
+      - 'clean'
+      - 'package'
+
   - id: 'Build and Push Container1'
     name: 'gcr.io/cloud-builders/docker'
     dir: './container1'
@@ -27,6 +35,14 @@ steps:
       - '-t'
       - 'us-central1-docker.pkg.dev/assignment-3-454605/assignment3-images/sajidrahman27/container22'
       - '.'
+
+  - id: 'Clean package Container2'
+    name: 'maven:3.8-openjdk-17'
+    dir: './container2'
+    args:
+      - 'mvn'
+      - 'clean'
+      - 'package'
 
   - id: 'Push Container2'
     name: 'gcr.io/cloud-builders/docker'
