@@ -5,7 +5,7 @@ options:
 steps:
   - id: 'Build and Push Container1'
     name: 'gcr.io/cloud-builders/docker'
-    dir: 'K8s/container1'
+    dir: './container1'
     args:
       - 'build'
       - '-t'
@@ -21,7 +21,7 @@ steps:
 
   - id: 'Build and Push Container2'
     name: 'gcr.io/cloud-builders/docker'
-    dir: 'K8s/container2'
+    dir: './container2'
     args:
       - 'build'
       - '-t'
