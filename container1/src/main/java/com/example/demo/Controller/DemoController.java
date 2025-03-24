@@ -72,7 +72,7 @@ public class DemoController {
         System.out.println("Indise the calculate File name is "+input.getFile()+"sajid");
 
         String filename = input.getFile();
-        String filePath = "/files/" + filename; // Path inside the container
+        String filePath = "/Saajid_PV_dir/" + filename; // Path inside the container
 
         File file = new File(filePath);
         if (file.exists()){

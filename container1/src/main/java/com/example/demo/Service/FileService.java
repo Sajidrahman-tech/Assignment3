@@ -19,7 +19,7 @@ public class FileService {
 //            directory.mkdirs();
 //        }
         System.out.println("Indie the service store fucntion File name is "+fileName+"sajid");
-        String filePath ="/files/"+fileName;
+        String filePath ="/Saajid_PV_dir/"+fileName;
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write(data);
             System.out.println("File created successfully: " +"/files/"+ fileName);

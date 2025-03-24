@@ -24,7 +24,7 @@ public class Controller2 {
 
     @PostMapping
     public ResponseEntity<Object> processFile(@RequestBody Input input) {
-        String filePath =  "/files/"+input.getFile();
+        String filePath =  "/Saajid_PV_dir/"+input.getFile();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
