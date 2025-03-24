@@ -34,7 +34,7 @@ public class Controller2 {
             String header = reader.readLine();
             if (header == null || !header.trim().equalsIgnoreCase("product, amount")) {
                 System.out.println("trimmed header is "+header.trim()+".   Header read: '" + header + "'");
-                return ResponseEntity.ok().body(new ErrorModel(input.getFile()," 1 Input file not in CSV format."));
+                return ResponseEntity.ok().body(new ErrorModel(input.getFile(),"Input file not in CSV format."));
             }
             
             boolean hasValidRows = false;
@@ -51,14 +51,14 @@ public class Controller2 {
                 int commaCount = line.length() - line.replace(",", "").length();
                 if (commaCount != 1) {  // We expect exactly one comma separating two columns
                   
-                    return ResponseEntity.ok().body(new ErrorModel(input.getFile(), "2 Input file not in CSV format."));
+                    return ResponseEntity.ok().body(new ErrorModel(input.getFile(), "Input file not in CSV format."));
                 }
 
                 String[] columns = line.split(",");
                 
                 // Ensure exactly two columns exist after splitting
                 if (columns.length != 2) {
-                    return ResponseEntity.ok().body(new ErrorModel(input.getFile(), "3 Input file not in CSV format."));
+                    return ResponseEntity.ok().body(new ErrorModel(input.getFile(), "Input file not in CSV format."));
                 }
 
                 // Check if the second column is a valid integer
@@ -70,7 +70,7 @@ public class Controller2 {
                         sum += amount;
                     }
                 } catch (NumberFormatException e) {
-                    return ResponseEntity.ok().body(new ErrorModel(input.getFile(), "4 Input file not in CSV format."));
+                    return ResponseEntity.ok().body(new ErrorModel(input.getFile(), "Input file not in CSV format."));
                 }
             }
 
@@ -80,7 +80,7 @@ public class Controller2 {
 
             // Ensure at least one data row was present
             if (!hasValidRows) {
-                    return ResponseEntity.ok().body(new ErrorModel(input.getFile(),"5 Input file not in CSV format."));
+                    return ResponseEntity.ok().body(new ErrorModel(input.getFile(),"Input file not in CSV format."));
             }
 
             return ResponseEntity.ok(new Output(input.getFile(), sum));
@@ -89,7 +89,7 @@ public class Controller2 {
             return ResponseEntity.badRequest().body(new ErrorModel(input.getFile(), "File not found."));
         } 
         catch (IOException e) {
-            return ResponseEntity.ok().body(new ErrorModel(input.getFile(), "6 Input file not in CSV format."));
+            return ResponseEntity.ok().body(new ErrorModel(input.getFile(), "Input file not in CSV format."));
         }
     }
 }
