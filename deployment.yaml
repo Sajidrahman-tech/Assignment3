@@ -98,7 +98,6 @@ spec:
     - protocol: TCP
       port: 81         # The port exposed to the outside world for container2
       targetPort: 7000  # The internal port inside container2 to forward traffic to
-  type: LoadBalancer  # Can use NodePort or ClusterIP depending on your needs
 
 
 
