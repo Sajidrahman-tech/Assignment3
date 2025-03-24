@@ -35,7 +35,7 @@ public class DemoController {
     @PostMapping("/store-file")
     public ResponseEntity<Object> storeFile(@RequestBody StoreFileRequest request) {
         if (request.getFile() == null || request.getFile().isEmpty()) {
-            System.out.println("File name is "+request.getFile()+"sajid");
+            System.out.println("File name is "+request.getFile()+"sajid123");
 //            return ResponseEntity.badRequest().body(
 //                    new StoreFileResponse(null, null, "Invalid JSON input.")
 //            );
